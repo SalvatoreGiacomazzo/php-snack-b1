@@ -43,6 +43,12 @@ $db = [
     <?php } ?>
 
 
+    <?php foreach ($db['pm'] as $singlePM) { ?>
+        <?= $singlePM['name'], $singlePM['lastname'] ?>
+
+    <?php } ?>
+
+
 </body>
 
 </html>
