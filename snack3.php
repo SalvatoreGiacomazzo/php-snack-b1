@@ -23,7 +23,7 @@ $db = [
     ]
 ];
 
-
+include '/style.css'
 
 //Stampare array mostrando in pagina in un rettangolo grigio e i PM in un rettangolo verde
 ?>
@@ -34,20 +34,24 @@ $db = [
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
 </head>
 
 <body>
-    <?php foreach ($db['teachers'] as $teacher) { ?>
-        <?= $teacher['name'], $teacher['lastname'] ?>
+    <div>
+        <?php foreach ($db['teachers'] as $teacher) { ?>
+            <?= $teacher['name'], $teacher['lastname'] ?>
 
-    <?php } ?>
+        <?php } ?>
 
+    </div>
 
-    <?php foreach ($db['pm'] as $singlePM) { ?>
-        <?= $singlePM['name'], $singlePM['lastname'] ?>
+    <div>
+        <?php foreach ($db['pm'] as $singlePM) { ?>
+            <?= $singlePM['name'], $singlePM['lastname'] ?>
 
-    <?php } ?>
-
+        <?php } ?>
+    </div>
 
 </body>
 
