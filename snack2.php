@@ -13,6 +13,7 @@ if (isset($_GET['name'], $_GET['mail'], $_GET['age'])) {
     $name = $_GET['name'];
     $mail = $_GET['mail'];
     $age = $_GET['age'];
+    $message = 'inserisci credenziali';
 }
 
 $correctName = strlen($name) > 3;
@@ -20,9 +21,9 @@ $correctName = strlen($name) > 3;
 
 
 if ($correctName && $age == is_numeric($age)) {
-    echo 'accesso riuscito';
+    echo $message = 'accesso riuscito';
 } else {
-    echo 'accesso negato';
+    echo $message = 'accesso negato';
 }
 
 
