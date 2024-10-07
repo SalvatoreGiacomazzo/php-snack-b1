@@ -241,10 +241,10 @@ $classi = [
 Stampare in pagina, senza particolare stilizzazione il nome di ogni classe e sotto ognuna, i dati di ogni studente/studentessa presente 
 nella relativa classe.
 
-Snack 4B:
+Snack 4B: DONE
 Filtrare il nostro array e mostrare, sempre suddivisi per classe, esclusivamente gli studenti e le studentesse con voto medio sufficiente.
 
-Snack 4C:
+Snack 4C: DONE
 Commentiamo il filtro del punto 4B (lasciatelo nel codice, in modo che possiamo comunque vederlo) e aggiungiamo un minimo di stile a piacere.
  Inseriamo quindi un form in cui l’utente possa inserire un input con il voto medio massimo, e filtriamo in base ad esso solo gli studenti
   che abbiano una media esclusivamente inferiore al voto inserito.
@@ -257,7 +257,7 @@ Implementare funzionalita’ di filtraggio aggiuntive basate, ad esempio, su nom
 
 
 
-foreach ($classi as $singleClass) {
+/*foreach ($classi as $singleClass) {
     $bestGrades = [];
     foreach ($singleClass as $student) {
         if ($student["voto_medio"] >= 6) {
@@ -265,9 +265,25 @@ foreach ($classi as $singleClass) {
         }
     }
     var_dump($bestGrades);
+}*/
+
+$filteredGrades = [];
+
+if (isset($_GET['voto'])) {                //Se arriva il numero del voto dal form
+    $voteFilter =  $_GET['voto'];         //assegnazione nome al voto per semplicità
+    foreach ($classi as $className => $singleClass) {        //ciclo nell'array di  classi e creo un array vuoto
+        $gradeFilteredStudents = [];
+
+        foreach ($singleClass as $student) {
+            if ($voteFilter > $student['voto_medio']) {    //ciclo per arrivare agli studenti e se soddisfano il criterio di filtraggio vengono ->
+                array_push($gradeFilteredStudents, $student); //pushati nell'array vuoto per il filtraggio
+            }
+        }
+        if (!empty($gradeFilteredStudents)) {          //se l'array degli studenti che soddisfano le condizioni non è vuoto
+            $filteredGrades[$className] = $gradeFilteredStudents; //lui e la sua classe vengono aggiunti all'array di filtraggio finale
+        }
+    }
 }
-
-
 
 
 ?>
@@ -284,36 +300,45 @@ foreach ($classi as $singleClass) {
 <body>
     <div class="container">
 
-        <?php foreach ($classi as $singleClass => $students) {  ?>
+        <?php if (!empty($filteredGrades)) {  ?>
+            <?php foreach ($filteredGrades as $singleClass => $students) {  ?>
 
 
-            <h4><?php echo $singleClass ?></h4>
+                <h4><?php echo $singleClass ?></h4>
 
-            <ul>
-                <?php foreach ($students as $key => $value) {  ?>
-
-
-                    <li>
-                        <strong> Nome: </strong> <?= $value["nome"]; ?>
+                <ul>
+                    <?php foreach ($students as $key => $value) {  ?>
 
 
-                        <strong>Cognome: </strong><?= $value["cognome"]; ?>
+                        <li>
+                            <strong> Nome: </strong> <?= $value["nome"]; ?>
 
 
-                        <strong>Anni: </strong><?= $value["anni"]; ?>
+                            <strong>Cognome: </strong><?= $value["cognome"]; ?>
 
 
-                        <strong> Voto medio:</strong> <?= $value["voto_medio"]; ?>
+                            <strong>Anni: </strong><?= $value["anni"]; ?>
 
 
-                        <strong> Linguaggio preferito:</strong> <?= $value["linguaggio_preferito"]; ?>
-                    </li>
-                <?php } ?>
-            </ul>
+                            <strong> Voto medio:</strong> <?= $value["voto_medio"]; ?>
 
 
+                            <strong> Linguaggio preferito:</strong> <?= $value["linguaggio_preferito"]; ?>
+                        </li>
+                    <?php } ?>
+                </ul>
+
+
+            <?php } ?>
         <?php } ?>
-
+        <form class="form-check" action="snack4.php" method="GET">
+            <div class="w-50">
+                <div class="form-group">
+                    <label for="voto">Filtra per voto</label>
+                    <input type="number" min="1" max="10" class="form-control" name="voto" id="voto">
+                </div>
+            </div>
+        </form>
     </div>
 
 
