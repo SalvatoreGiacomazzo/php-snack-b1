@@ -331,13 +331,26 @@ if (isset($_GET['voto'])) {                //Se arriva il numero del voto dal fo
 
             <?php } ?>
         <?php } ?>
-        <form class="form-check" action="snack4.php" method="GET">
-            <div class="w-50">
-                <div class="form-group">
-                    <label for="voto">Filtra per voto</label>
-                    <input type="number" min="1" max="10" class="form-control" name="voto" id="voto">
+
+        <div class="container w-75">
+            <form class="form-check" action="snack4.php" method="GET">
+                <div class="form-row d-flex gap-5">
+
+                    <div class="form-group">
+                        <label for="voto">Filtra per voto</label>
+                        <input type="number" min="1" max="10" class="form-control" name="voto" id="voto">
+                    </div>
+                    <div class="col-6 ">
+                        <label for="language"> Filtra per linguaggio</label>
+                        <select class="form-select">
+                            <option value="JS">JS</option>
+                            <option value="HTML">HTML</option>
+                            <option value="CSS">CSS</option>
+                            <option value="PHP">PHP</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
+        </div>
         </form>
     </div>
 
