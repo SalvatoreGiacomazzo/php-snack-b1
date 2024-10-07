@@ -256,6 +256,20 @@ Implementare funzionalita’ di filtraggio aggiuntive basate, ad esempio, su nom
 */
 
 
+
+foreach ($classi as $singleClass) {
+    $bestGrades = [];
+    foreach ($singleClass as $student) {
+        if ($student["voto_medio"] >= 6) {
+            array_push($bestGrades, $student);
+        }
+    }
+    var_dump($bestGrades);
+}
+
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
