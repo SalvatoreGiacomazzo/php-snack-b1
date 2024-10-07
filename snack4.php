@@ -249,7 +249,7 @@ Commentiamo il filtro del punto 4B (lasciatelo nel codice, in modo che possiamo 
  Inseriamo quindi un form in cui l’utente possa inserire un input con il voto medio massimo, e filtriamo in base ad esso solo gli studenti
   che abbiano una media esclusivamente inferiore al voto inserito.
 
-Snack 4D:
+Snack 4D: DONE
 Aggiungiamo un input che consenta l’inserimento del linguaggio di programmazione preferito, e filtriamo in base ad esso solo gli studenti che abbiano quel linguaggio come preferito.
 Bonus:
 Implementare funzionalita’ di filtraggio aggiuntive basate, ad esempio, su nome, cognome o anni dei relativi studenti, o magari sul nome della nostra classe.
@@ -267,7 +267,7 @@ Implementare funzionalita’ di filtraggio aggiuntive basate, ad esempio, su nom
     var_dump($bestGrades);
 }*/
 
-$filteredGrades = [];
+$filtered = [];
 
 if (isset($_GET['voto'])) {                //Se arriva il numero del voto dal form
     $voteFilter =  $_GET['voto'];         //assegnazione nome al voto per semplicità
@@ -280,12 +280,26 @@ if (isset($_GET['voto'])) {                //Se arriva il numero del voto dal fo
             }
         }
         if (!empty($gradeFilteredStudents)) {          //se l'array degli studenti che soddisfano le condizioni non è vuoto
-            $filteredGrades[$className] = $gradeFilteredStudents; //lui e la sua classe vengono aggiunti all'array di filtraggio finale
+            $filtered[$className] = $gradeFilteredStudents; //lui e la sua classe vengono aggiunti all'array di filtraggio finale
         }
     }
 }
 
+if (isset($_GET['language'])) {
+    $favLanguage = $_GET['language'];
+    foreach ($classi as $className => $singleClass) {
+        $languageFilteredStudents = [];
 
+        foreach ($singleClass as $student) {
+            if ($student['linguaggio_preferito'] === $favLanguage) {           //Se il linguaggio selezionato dall'utente è uguale
+                array_push($languageFilteredStudents, $student);                //al linguaggio preferito di uno studente
+            }
+        }
+        if (!empty($languageFilteredStudents)) {
+            $filtered[$className] = $languageFilteredStudents;
+        }
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -300,8 +314,8 @@ if (isset($_GET['voto'])) {                //Se arriva il numero del voto dal fo
 <body>
     <div class="container">
 
-        <?php if (!empty($filteredGrades)) {  ?>
-            <?php foreach ($filteredGrades as $singleClass => $students) {  ?>
+        <?php if (!empty($filtered)) {  ?>
+            <?php foreach ($filtered as $singleClass => $students) {  ?>
 
 
                 <h4><?php echo $singleClass ?></h4>
@@ -342,13 +356,16 @@ if (isset($_GET['voto'])) {                //Se arriva il numero del voto dal fo
                     </div>
                     <div class="col-6 ">
                         <label for="language"> Filtra per linguaggio</label>
-                        <select class="form-select">
-                            <option value="JS">JS</option>
-                            <option value="HTML">HTML</option>
-                            <option value="CSS">CSS</option>
-                            <option value="PHP">PHP</option>
+                        <select class="form-select" name="language" id="language">
+                            <option name="language" value="JS" selected>JS</option>
+                            <option name="language" value="HTML">HTML</option>
+                            <option name="language" value="CSS">CSS</option>
+                            <option name="language" value="PHP">PHP</option>
                         </select>
                     </div>
+                </div>
+                <div class="mt-3">
+                    <button type="submit" class="btn btn-primary">Filtra</button>
                 </div>
         </div>
         </form>
