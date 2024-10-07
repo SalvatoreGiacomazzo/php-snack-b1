@@ -270,27 +270,37 @@ Implementare funzionalita’ di filtraggio aggiuntive basate, ad esempio, su nom
 <body>
     <div class="container">
 
-        <ul>
-            <?php foreach ($classi as $singleClass => $students) {  ?>
-                <li>
+        <?php foreach ($classi as $singleClass => $students) {  ?>
 
-                    <?php echo $singleClass ?>
-                    <ul>
 
-                        <?php foreach ($students as $singleStudent) {  ?>
-                            <li>
-                                <?= $singleStudent["nome"];                 ?>
-                            </li>
-                        <?php } ?>
-                    </ul>
-                </li>
+            <h4><?php echo $singleClass ?></h4>
 
-            <?php } ?>
-        </ul>
+            <ul>
+                <?php foreach ($students as $key => $value) {  ?>
 
+
+                    <li>
+                        <strong> Nome: </strong> <?= $value["nome"]; ?>
+
+
+                        <strong>Cognome: </strong><?= $value["cognome"]; ?>
+
+
+                        <strong>Anni: </strong><?= $value["anni"]; ?>
+
+
+                        <strong> Voto medio:</strong> <?= $value["voto_medio"]; ?>
+
+
+                        <strong> Linguaggio preferito:</strong> <?= $value["linguaggio_preferito"]; ?>
+                    </li>
+                <?php } ?>
+            </ul>
+
+
+        <?php } ?>
 
     </div>
-
 
 
 </body>
